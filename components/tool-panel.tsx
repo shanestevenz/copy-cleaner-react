@@ -194,8 +194,9 @@ export function ToolPanel({
 
       {/* Tool buttons */}
       <div className="flex-1 overflow-y-auto p-3">
+
         {activeCategory !== "custom" ? (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2"> {/* Default Panel for None Custom Rules */}
             {filteredTransforms.map((transform) => {
               const IconComp = iconMap[transform.icon] || Zap
               return (
@@ -245,7 +246,7 @@ export function ToolPanel({
             })}
           </div>
         ) : (
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2"> {/* Custom Rules Panel */}
             <Button
               variant="outline"
               size="sm"
@@ -256,6 +257,7 @@ export function ToolPanel({
               Add Custom Rule
             </Button>
 
+            {/* Logic for No Rules Yet */}
             {customRules.length === 0 && (
               <div className="flex flex-col items-center justify-center py-8 text-center">
                 <Wrench className="size-8 text-muted-foreground/40 mb-3" />
@@ -267,7 +269,7 @@ export function ToolPanel({
                 </p>
               </div>
             )}
-
+             {/* Render the existing Rules */}
             {customRules.map((rule) => (
               <div
                 key={rule.id}

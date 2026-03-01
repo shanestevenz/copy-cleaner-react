@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useCallback } from "react"
-import { Sparkles } from "lucide-react"
+import { WandSparkles  } from "lucide-react"
 import { TextEditor } from "@/components/text-editor"
 import type { TextSelection } from "@/components/text-editor"
 import { ToolPanel } from "@/components/tool-panel"
@@ -43,7 +43,7 @@ export default function Page() {
       <header className="flex items-center gap-3 px-4 py-3 border-b border-border shrink-0">
         <div className="flex items-center gap-2">
           <div className="flex items-center justify-center size-8 rounded-lg bg-primary"> {/*Logo */}
-            <Sparkles className="size-4 text-primary-foreground" />
+            <WandSparkles className="size-5 text-primary-foreground" />
           </div>
           <div>
             <h1 className="text-sm font-semibold text-foreground leading-none">
