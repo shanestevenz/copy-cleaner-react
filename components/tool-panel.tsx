@@ -142,8 +142,17 @@ export function ToolPanel({
     <div className="flex flex-col h-full">
       {/* Selection mode toggle */}
       <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
-        <button
+        {/* Changed Button component to div due to hydration issues */}
+        <div 
+          role="button"
+          tabIndex={0}
           onClick={() => onSelectionModeChange(!selectionMode)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault()
+              onSelectionModeChange(!selectionMode)
+            }
+          }}
           className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all w-full ${isSelectionActive
             ? "bg-primary/15 text-primary ring-1 ring-primary/30"
             : selectionMode
@@ -166,7 +175,7 @@ export function ToolPanel({
             className="pointer-events-none"
           />
 
-        </button>
+        </div>
       </div>
 
       {/* Category tabs */}
@@ -269,7 +278,7 @@ export function ToolPanel({
                 </p>
               </div>
             )}
-             {/* Render the existing Rules */}
+            {/* Render the existing Rules */}
             {customRules.map((rule) => (
               <div
                 key={rule.id}
