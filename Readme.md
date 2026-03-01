@@ -14,7 +14,7 @@ Clean, format, and transform text instantly — no bloat, no tracking, no login.
 - Collapse Blank Lines
 - Tabs to Spaces
 
-## 🔤 Change Case:
+### 🔤 Change Case:
 - Uppercase
 - lowercase
 - Capitalize Words
