@@ -42,12 +42,12 @@ export default function Page() {
       {/* Header */}
       <header className="flex items-center gap-3 px-4 py-3 border-b border-border shrink-0">
         <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center size-8 rounded-lg bg-primary">
+          <div className="flex items-center justify-center size-8 rounded-lg bg-primary"> {/*Logo */}
             <Sparkles className="size-4 text-primary-foreground" />
           </div>
           <div>
             <h1 className="text-sm font-semibold text-foreground leading-none">
-              TextScrub
+              CopyCleaner
             </h1>
             <p className="text-[10px] text-muted-foreground mt-0.5">
               Paste. Clean. Copy.
@@ -72,8 +72,8 @@ export default function Page() {
           <StatsBar text={text} selection={selection} selectionMode={selectionMode} />
         </div>
 
-        {/* Tool sidebar */}
-        <div className="w-72 lg:w-80 border-l border-border shrink-0 hidden md:flex flex-col">
+        {/* Desktop Tool sidebar */}
+        <div className="w-72 lg:w-80 border-l border-border shrink-0 hidden md:flex flex-col ">
           <ToolPanel
             text={text}
             onApply={applyTransform}

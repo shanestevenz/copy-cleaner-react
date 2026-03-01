@@ -143,13 +143,12 @@ export function ToolPanel({
       <div className="flex items-center gap-2 px-3 py-2 border-b border-border">
         <button
           onClick={() => onSelectionModeChange(!selectionMode)}
-          className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all w-full ${
-            isSelectionActive
+          className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all w-full ${isSelectionActive
               ? "bg-primary/15 text-primary ring-1 ring-primary/30"
               : selectionMode
                 ? "bg-accent text-accent-foreground ring-1 ring-border"
                 : "text-muted-foreground hover:text-foreground hover:bg-accent"
-          }`}
+            }`}
         >
           <TextCursorInput className="size-3.5 shrink-0" />
           <span className="flex-1 text-left">
@@ -160,11 +159,10 @@ export function ToolPanel({
                 : "Apply to selection only"}
           </span>
           <div
-            className={`size-4 rounded-sm border transition-colors flex items-center justify-center ${
-              selectionMode
+            className={`size-4 rounded-sm border transition-colors flex items-center justify-center ${selectionMode
                 ? "bg-primary border-primary"
                 : "border-muted-foreground/40"
-            }`}
+              }`}
           >
             {selectionMode && (
               <svg viewBox="0 0 8 8" className="size-2.5 text-primary-foreground" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
@@ -176,18 +174,20 @@ export function ToolPanel({
       </div>
 
       {/* Category tabs */}
-      <div className="flex items-center gap-1 px-3 py-2 border-b border-border overflow-x-auto scrollbar-none">
+      <div className="flex items-center gap-1 px-3 py-3 border-b border-border
+                overflow-x-auto md:overflow-x-visible
+                whitespace-nowrap md:flex-wrap
+                scrollbar-hidden">
         {categories.map((cat) => {
           const { label, icon: CatIcon } = categoryLabels[cat]
           return (
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${
-                activeCategory === cat
+              className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${activeCategory === cat
                   ? "bg-primary text-primary-foreground"
                   : "text-muted-foreground hover:text-foreground hover:bg-accent"
-              }`}
+                }`}
             >
               <CatIcon className="size-3.5" />
               {label}

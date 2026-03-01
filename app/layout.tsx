@@ -7,9 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'TextScrub - Copy Paste Text Cleaner',
+  title: 'CopyCleaner - Copy/Paste Text Cleaner',
   description: 'Clean, format, and transform your pasted text instantly with built-in and custom editing rules.',
-  generator: 'v0.app',
   icons: {
     icon: [
       {
