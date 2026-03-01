@@ -33,6 +33,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
+import { Switch } from "@/components/ui/switch"
 import {
   Tooltip,
   TooltipContent,
@@ -144,13 +145,13 @@ export function ToolPanel({
         <button
           onClick={() => onSelectionModeChange(!selectionMode)}
           className={`flex items-center gap-2 px-2.5 py-1.5 rounded-md text-xs font-medium transition-all w-full ${isSelectionActive
-              ? "bg-primary/15 text-primary ring-1 ring-primary/30"
-              : selectionMode
-                ? "bg-accent text-accent-foreground ring-1 ring-border"
-                : "text-muted-foreground hover:text-foreground hover:bg-accent"
+            ? "bg-primary/15 text-primary ring-1 ring-primary/30"
+            : selectionMode
+              ? "bg-accent text-accent-foreground ring-1 ring-border"
+              : "text-muted-foreground hover:text-foreground hover:bg-accent"
             }`}
         >
-          <TextCursorInput className="size-3.5 shrink-0" />
+          <TextCursorInput className="size-5 shrink-0" />  {/* toggle icon */}
           <span className="flex-1 text-left">
             {isSelectionActive
               ? `Selection (${selection!.text.length} chars)`
@@ -158,18 +159,13 @@ export function ToolPanel({
                 ? "Selection mode on - select text"
                 : "Apply to selection only"}
           </span>
-          <div
-            className={`size-4 rounded-sm border transition-colors flex items-center justify-center ${selectionMode
-                ? "bg-primary border-primary"
-                : "border-muted-foreground/40"
-              }`}
-          >
-            {selectionMode && (
-              <svg viewBox="0 0 8 8" className="size-2.5 text-primary-foreground" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M1 4l2 2 4-4" />
-              </svg>
-            )}
-          </div>
+
+          <Switch
+            checked={selectionMode}
+            onCheckedChange={onSelectionModeChange}
+            className="pointer-events-none"
+          />
+
         </button>
       </div>
 
@@ -185,8 +181,8 @@ export function ToolPanel({
               key={cat}
               onClick={() => setActiveCategory(cat)}
               className={`flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-xs font-medium whitespace-nowrap transition-colors ${activeCategory === cat
-                  ? "bg-primary text-primary-foreground"
-                  : "text-muted-foreground hover:text-foreground hover:bg-accent"
+                ? "bg-primary text-primary-foreground"
+                : "text-muted-foreground hover:text-foreground hover:bg-accent"
                 }`}
             >
               <CatIcon className="size-3.5" />
