@@ -10,20 +10,7 @@ export const metadata: Metadata = {
   title: 'CopyCleaner - Copy/Paste Text Cleaner',
   description: 'Clean, format, and transform your pasted text instantly with built-in and custom editing rules.',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
+    icon: "/favicon.png", 
     apple: '/apple-icon.png',
   },
 }
