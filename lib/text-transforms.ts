@@ -1,13 +1,13 @@
 export interface TextTransform {
-  id: string
-  name: string
-  description: string
-  category: "cleanup" | "case" | "format" | "remove" | "custom"
-  icon: string
-  action: (text: string, params?: Record<string, string>) => string
-  hasParams?: boolean
-  paramLabel?: string
-  paramPlaceholder?: string
+  id: string;
+  name: string;
+  description: string;
+  category: "cleanup" | "case" | "format" | "remove" | "custom";
+  icon: string;
+  action: (text: string, params?: Record<string, string>) => string;
+  hasParams?: boolean;
+  paramLabel?: string;
+  paramPlaceholder?: string;
 }
 
 export const builtInTransforms: TextTransform[] = [
@@ -84,11 +84,7 @@ export const builtInTransforms: TextTransform[] = [
     description: "Capitalize the first letter of every word",
     category: "case",
     icon: "type",
-    action: (text) =>
-      text.replace(
-        /\b\w/g,
-        (char) => char.toUpperCase()
-      ),
+    action: (text) => text.replace(/\b\w/g, (char) => char.toUpperCase()),
   },
   {
     id: "sentence-case",
@@ -96,8 +92,7 @@ export const builtInTransforms: TextTransform[] = [
     description: "Capitalize the first letter of each sentence",
     category: "case",
     icon: "text",
-    action: (text) =>
-      text.replace(/(^\s*\w|[.!?]\s+\w)/g, (char) => char.toUpperCase()),
+    action: (text) => text.replace(/(^\s*\w|[.!?]\s+\w)/g, (char) => char.toUpperCase()),
   },
   {
     id: "toggle-case",
@@ -185,9 +180,9 @@ export const builtInTransforms: TextTransform[] = [
     paramLabel: "Keyword to remove",
     paramPlaceholder: "Enter word or phrase...",
     action: (text, params) => {
-      const keyword = params?.keyword || ""
-      if (!keyword) return text
-      return text.split(keyword).join("")
+      const keyword = params?.keyword || "";
+      if (!keyword) return text;
+      return text.split(keyword).join("");
     },
   },
   {
@@ -200,11 +195,11 @@ export const builtInTransforms: TextTransform[] = [
     paramLabel: "Find | Replace with",
     paramPlaceholder: "find|replace",
     action: (text, params) => {
-      const keyword = params?.keyword || ""
-      if (!keyword.includes("|")) return text
-      const [find, replace] = keyword.split("|")
-      if (!find) return text
-      return text.split(find).join(replace || "")
+      const keyword = params?.keyword || "";
+      if (!keyword.includes("|")) return text;
+      const [find, replace] = keyword.split("|");
+      if (!find) return text;
+      return text.split(find).join(replace || "");
     },
   },
   {
@@ -247,40 +242,40 @@ export const builtInTransforms: TextTransform[] = [
     icon: "mail",
     action: (text) => text.replace(/\S+@\S+\.\S+/g, ""),
   },
-]
+];
 
 export interface CustomRule {
-  id: string
-  name: string
-  type: "remove" | "replace" | "prefix" | "suffix" | "regex"
-  find: string
-  replace: string
+  id: string;
+  name: string;
+  type: "remove" | "replace" | "prefix" | "suffix" | "regex";
+  find: string;
+  replace: string;
 }
 
 export function applyCustomRule(text: string, rule: CustomRule): string {
   switch (rule.type) {
     case "remove":
-      return text.split(rule.find).join("")
+      return text.split(rule.find).join("");
     case "replace":
-      return text.split(rule.find).join(rule.replace)
+      return text.split(rule.find).join(rule.replace);
     case "prefix":
       return text
         .split("\n")
         .map((line) => (line.trim() ? `${rule.find}${line}` : line))
-        .join("\n")
+        .join("\n");
     case "suffix":
       return text
         .split("\n")
         .map((line) => (line.trim() ? `${line}${rule.find}` : line))
-        .join("\n")
+        .join("\n");
     case "regex":
       try {
-        const regex = new RegExp(rule.find, "g")
-        return text.replace(regex, rule.replace)
+        const regex = new RegExp(rule.find, "g");
+        return text.replace(regex, rule.replace);
       } catch {
-        return text
+        return text;
       }
     default:
-      return text
+      return text;
   }
 }

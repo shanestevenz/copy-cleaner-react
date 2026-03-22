@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Dialog,
   DialogContent,
@@ -11,34 +11,30 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import type { CustomRule } from "@/lib/text-transforms"
+} from "@/components/ui/select";
+import type { CustomRule } from "@/lib/text-transforms";
 
 interface CustomRuleDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onSave: (rule: CustomRule) => void
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  onSave: (rule: CustomRule) => void;
 }
 
-export function CustomRuleDialog({
-  open,
-  onOpenChange,
-  onSave,
-}: CustomRuleDialogProps) {
-  const [name, setName] = useState("")
-  const [type, setType] = useState<CustomRule["type"]>("remove")
-  const [find, setFind] = useState("")
-  const [replace, setReplace] = useState("")
+export function CustomRuleDialog({ open, onOpenChange, onSave }: CustomRuleDialogProps) {
+  const [name, setName] = useState("");
+  const [type, setType] = useState<CustomRule["type"]>("remove");
+  const [find, setFind] = useState("");
+  const [replace, setReplace] = useState("");
 
   const handleSave = () => {
-    if (!name.trim() || !find.trim()) return
+    if (!name.trim() || !find.trim()) return;
 
     onSave({
       id: crypto.randomUUID(),
@@ -46,16 +42,16 @@ export function CustomRuleDialog({
       type,
       find: find,
       replace: replace,
-    })
+    });
 
-    setName("")
-    setType("remove")
-    setFind("")
-    setReplace("")
-    onOpenChange(false)
-  }
+    setName("");
+    setType("remove");
+    setFind("");
+    setReplace("");
+    onOpenChange(false);
+  };
 
-  const showReplace = type === "replace" || type === "regex"
+  const showReplace = type === "replace" || type === "regex";
   const findLabel =
     type === "prefix" || type === "suffix"
       ? type === "prefix"
@@ -63,7 +59,7 @@ export function CustomRuleDialog({
         : "Suffix text"
       : type === "regex"
         ? "Regex pattern"
-        : "Text to find"
+        : "Text to find";
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -93,10 +89,7 @@ export function CustomRuleDialog({
             <Label htmlFor="rule-type" className="text-xs text-muted-foreground">
               Type
             </Label>
-            <Select
-              value={type}
-              onValueChange={(v) => setType(v as CustomRule["type"])}
-            >
+            <Select value={type} onValueChange={(v) => setType(v as CustomRule["type"])}>
               <SelectTrigger id="rule-type" className="bg-input border-border text-foreground">
                 <SelectValue />
               </SelectTrigger>
@@ -118,19 +111,14 @@ export function CustomRuleDialog({
               id="rule-find"
               value={find}
               onChange={(e) => setFind(e.target.value)}
-              placeholder={
-                type === "regex" ? "e.g. \\d+" : "Enter text..."
-              }
+              placeholder={type === "regex" ? "e.g. \\d+" : "Enter text..."}
               className="bg-input border-border text-foreground font-mono text-sm"
             />
           </div>
 
           {showReplace && (
             <div className="flex flex-col gap-2">
-              <Label
-                htmlFor="rule-replace"
-                className="text-xs text-muted-foreground"
-              >
+              <Label htmlFor="rule-replace" className="text-xs text-muted-foreground">
                 Replace with
               </Label>
               <Input
@@ -162,5 +150,5 @@ export function CustomRuleDialog({
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

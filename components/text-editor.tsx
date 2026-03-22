@@ -1,34 +1,24 @@
-"use client"
+"use client";
 
-import { useCallback, useRef, useEffect } from "react"
-import {
-  ClipboardPaste,
-  Copy,
-  Trash2,
-  Undo2,
-  Redo2,
-} from "lucide-react"
-import { Button } from "@/components/ui/button"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { useCallback, useRef, useEffect } from "react";
+import { ClipboardPaste, Copy, Trash2, Undo2, Redo2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 export interface TextSelection {
-  start: number
-  end: number
-  text: string
+  start: number;
+  end: number;
+  text: string;
 }
 
 interface TextEditorProps {
-  text: string
-  setText: (text: string) => void
-  history: string[]
-  historyIndex: number
-  setHistory: (history: string[]) => void
-  setHistoryIndex: (index: number) => void
-  onSelectionChange?: (selection: TextSelection | null) => void
+  text: string;
+  setText: (text: string) => void;
+  history: string[];
+  historyIndex: number;
+  setHistory: (history: string[]) => void;
+  setHistoryIndex: (index: number) => void;
+  onSelectionChange?: (selection: TextSelection | null) => void;
 }
 
 export function TextEditor({
@@ -40,87 +30,87 @@ export function TextEditor({
   setHistoryIndex,
   onSelectionChange,
 }: TextEditorProps) {
-  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const pushToHistory = useCallback(
     (newText: string) => {
-      const newHistory = history.slice(0, historyIndex + 1)
-      newHistory.push(newText)
-      setHistory(newHistory)
-      setHistoryIndex(newHistory.length - 1)
-      setText(newText)
+      const newHistory = history.slice(0, historyIndex + 1);
+      newHistory.push(newText);
+      setHistory(newHistory);
+      setHistoryIndex(newHistory.length - 1);
+      setText(newText);
     },
     [history, historyIndex, setHistory, setHistoryIndex, setText]
-  )
+  );
 
   const undo = useCallback(() => {
     if (historyIndex > 0) {
-      const newIndex = historyIndex - 1
-      setHistoryIndex(newIndex)
-      setText(history[newIndex])
+      const newIndex = historyIndex - 1;
+      setHistoryIndex(newIndex);
+      setText(history[newIndex]);
     }
-  }, [historyIndex, history, setHistoryIndex, setText])
+  }, [historyIndex, history, setHistoryIndex, setText]);
 
   const redo = useCallback(() => {
     if (historyIndex < history.length - 1) {
-      const newIndex = historyIndex + 1
-      setHistoryIndex(newIndex)
-      setText(history[newIndex])
+      const newIndex = historyIndex + 1;
+      setHistoryIndex(newIndex);
+      setText(history[newIndex]);
     }
-  }, [historyIndex, history, setHistoryIndex, setText])
+  }, [historyIndex, history, setHistoryIndex, setText]);
 
   const handlePaste = useCallback(async () => {
     try {
-      const clipText = await navigator.clipboard.readText()
-      pushToHistory(clipText)
+      const clipText = await navigator.clipboard.readText();
+      pushToHistory(clipText);
     } catch {
       // fallback: focus textarea so user can Ctrl+V
-      textareaRef.current?.focus()
+      textareaRef.current?.focus();
     }
-  }, [pushToHistory])
+  }, [pushToHistory]);
 
   const handleCopy = useCallback(async () => {
     try {
-      await navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(text);
     } catch {
       // silent fail
     }
-  }, [text])
+  }, [text]);
 
   const handleClear = useCallback(() => {
-    pushToHistory("")
-  }, [pushToHistory])
+    pushToHistory("");
+  }, [pushToHistory]);
 
   const handleSelectionChange = useCallback(() => {
-    const textarea = textareaRef.current
-    if (!textarea || !onSelectionChange) return
-    const start = textarea.selectionStart
-    const end = textarea.selectionEnd
+    const textarea = textareaRef.current;
+    if (!textarea || !onSelectionChange) return;
+    const start = textarea.selectionStart;
+    const end = textarea.selectionEnd;
     if (start !== end) {
       onSelectionChange({
         start,
         end,
         text: textarea.value.substring(start, end),
-      })
+      });
     } else {
-      onSelectionChange(null)
+      onSelectionChange(null);
     }
-  }, [onSelectionChange])
+  }, [onSelectionChange]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === "z") {
-        e.preventDefault()
+        e.preventDefault();
         if (e.shiftKey) {
-          redo()
+          redo();
         } else {
-          undo()
+          undo();
         }
       }
-    }
-    window.addEventListener("keydown", handler)
-    return () => window.removeEventListener("keydown", handler)
-  }, [undo, redo])
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [undo, redo]);
 
   return (
     <div className="flex flex-col flex-1 min-h-0">
@@ -222,5 +212,5 @@ export function TextEditor({
         />
       </div>
     </div>
-  )
+  );
 }

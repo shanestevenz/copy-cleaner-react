@@ -1,24 +1,24 @@
-import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
-import { Analytics } from '@vercel/analytics/next'
-import './globals.css'
+import type { Metadata } from "next";
+import { Geist, Geist_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
+import "./globals.css";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'CopyCleaner - Copy/Paste Text Cleaner',
-  description: 'Clean, format, and transform your pasted text instantly with built-in and custom editing rules.',
+  title: "CopyCleaner - Copy/Paste Text Cleaner",
+  description:
+    "Clean, format, and transform your pasted text instantly with built-in and custom editing rules.",
   icons: {
-    icon: "/favicon.png", 
-    apple: '/apple-icon.png',
+    icon: "/favicon.png",
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html lang="en">
@@ -27,5 +27,5 @@ export default function RootLayout({
         <Analytics />
       </body>
     </html>
-  )
+  );
 }

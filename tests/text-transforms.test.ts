@@ -304,9 +304,7 @@ describe("transforms - actions", () => {
     });
 
     it("handles text starting with lowercase", () => {
-      expect(t.action("first sentence. second sentence.")).toBe(
-        "First sentence. Second sentence."
-      );
+      expect(t.action("first sentence. second sentence.")).toBe("First sentence. Second sentence.");
     });
   });
 
@@ -645,9 +643,7 @@ describe("transforms - actions", () => {
     });
 
     it("removes numbers from mixed content", () => {
-      expect(t.action("Version 2.5 released on 2024-03-01")).toBe(
-        "Version . released on --"
-      );
+      expect(t.action("Version 2.5 released on 2024-03-01")).toBe("Version . released on --");
     });
   });
 
@@ -730,9 +726,7 @@ describe("transforms - actions", () => {
     });
 
     it("removes multiple URLs", () => {
-      expect(t.action("http://a.com and https://b.com and www.c.com")).toBe(
-        " and  and "
-      );
+      expect(t.action("http://a.com and https://b.com and www.c.com")).toBe(" and  and ");
     });
 
     it("handles empty string", () => {
@@ -757,15 +751,11 @@ describe("transforms - actions", () => {
     const t = get("remove-emails");
 
     it("removes email addresses", () => {
-      expect(t.action("Contact me at test@example.com please")).toBe(
-        "Contact me at  please"
-      );
+      expect(t.action("Contact me at test@example.com please")).toBe("Contact me at  please");
     });
 
     it("removes multiple emails", () => {
-      expect(t.action("Email john@example.com or jane@example.com")).toBe(
-        "Email  or "
-      );
+      expect(t.action("Email john@example.com or jane@example.com")).toBe("Email  or ");
     });
 
     it("handles empty string", () => {
